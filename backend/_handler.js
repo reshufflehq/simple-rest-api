@@ -92,7 +92,7 @@ app.delete('/api/pets/:id', express.json(), async (req, res) => {
   }
 });
 
-// other endpoints and funtions 
+// other endpoints and functions 
 
 function uuidv4() {
   return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
