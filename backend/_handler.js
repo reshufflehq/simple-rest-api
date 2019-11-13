@@ -112,7 +112,7 @@ app.get('/hello', async (_, res) => {
 });
 
 app.get('/', (_, res) => {
-  res.end('hello from express');
+  res.redirect('/api-docs');
 });
 
 var options = {
