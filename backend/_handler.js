@@ -76,7 +76,7 @@ app.put('/api/pets/:id', express.json(), async (req, res) => {
   }
 }); 
 
-//DELETE /collection/:id - I’ll let you figure that one out on your own :) should return a 204 no content if successful.
+//DELETE /collection/:id  should return a 204 no content if successful.
 app.delete('/api/pets/:id', express.json(), async (req, res) => {
   try {
       const id = req.params.id;
