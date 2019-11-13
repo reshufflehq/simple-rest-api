@@ -14,8 +14,9 @@ const allPetsQuery = db.Q.filter(db.Q.key.startsWith('pets/'));
 app.get('/api/pets', async (req, res) => {
     try {
         const result = await db.find(allPetsQuery);
+        const values = result.map(({ value }) => value);
         res.setHeader('Content-Type', 'application/json');
-        res.end(JSON.stringify(result));
+        res.end(JSON.stringify(values));
     } catch (e) {
         res.sendStatus(500);
         console.error(e);
@@ -101,9 +102,9 @@ function uuidv4() {
   });
 }
 
-app.get('/hello', async (_, res) => {
+app.get('/please-change-me/db-admin', async (_, res) => {
   try {
-    const val = await get('hello') || 'World';
+    
     res.end('Hello ', val);
   } catch (err) {
     console.error(err);
