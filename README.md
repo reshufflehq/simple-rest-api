@@ -1,3 +1,5 @@
+## A starting point for creating your REST API with Reshuffle.
+
 This is a simple starter kit for a REST API implementation. You can use it to easily create many useful APIs. Additionally, you can use the Swagger specification to automatically create a working UI. This UI can be used for testing and sharing your API with other developers.
 
 Learn more about creating [API endpoints](https://dev.reshuffle.app/serving-api-endpoints) with reshuffle.
@@ -18,9 +20,15 @@ This is a Reshuffle template app. [Reshuffle](https://www.reshuffle.com) provide
             Backend code needs to reside in the `backend` directory. [Read more here](https://dev.reshuffle.com)
 3.  `npx reshuffle deploy` to deploy your app to the cloud.
 
+## Impoprtant files
+
+1. The API code can be found at `./backend/_handler.js`
+2. The API description can found in `./backend/swagger.json`
+3. The source code for the frontend react components can be found in `/src`
+
 ## Available Scripts
 
-In the directory of your Reshuffle project, you can run:
+Inside your Reshuffle project directory, you may run:
 
 ### `npm start`
 
