@@ -1,6 +1,5 @@
 import express from 'express';
 import * as db from '@reshuffle/db';
-const devDBAdmin = require('./_dev_db_admin.js');
 const swaggerUi = require('swagger-ui-express');
 const swaggerDocument = require('./swagger.json');
 
