@@ -1,12 +1,12 @@
 import express from 'express';
-import { get } from '@reshuffle/db';
 import * as db from '@reshuffle/db';
+const devDBAdmin = require('./_dev_db_admin.js');
 const swaggerUi = require('swagger-ui-express');
 const swaggerDocument = require('./swagger.json');
 
 
 const app = express();
-
+app.set('trust proxy', true);
 // API endpoints
 const allPetsQuery = db.Q.filter(db.Q.key.startsWith('pets/'));
 
@@ -16,7 +16,7 @@ app.get('/api/pets', async (req, res) => {
         const result = await db.find(allPetsQuery);
         const values = result.map(({ value }) => value);
         res.setHeader('Content-Type', 'application/json');
-        res.end(JSON.stringify(values));
+        res.end(JSON.stringify(result));
     } catch (e) {
         res.sendStatus(500);
         console.error(e);
@@ -101,16 +101,6 @@ function uuidv4() {
     return v.toString(16);
   });
 }
-
-app.get('/please-change-me/db-admin', async (_, res) => {
-  try {
-    
-    res.end('Hello ', val);
-  } catch (err) {
-    console.error(err);
-    res.sendStatus(500);
-  }
-});
 
 app.get('/', (_, res) => {
   res.redirect('/api-docs');
