@@ -11,14 +11,15 @@ const allPetsQuery = db.Q.filter(db.Q.key.startsWith('pets/'));
 
 //GET /collection - gets all entries in the collection, query string is the filter attributes like /collection?param1=foo
 app.get('/api/pets', async (req, res) => {
-  try {
-    const result = await db.find(allPetsQuery);
-    res.setHeader('Content-Type', 'application/json');
-    res.end(JSON.stringify(result));
-  } catch (e) {
-    res.sendStatus(500);
-    console.error(e);
-  }
+    try {
+        const result = await db.find(allPetsQuery);
+        const values = result.map(({ value }) => value);
+        res.setHeader('Content-Type', 'application/json');
+        res.end(JSON.stringify(values));
+    } catch (e) {
+        res.sendStatus(500);
+        console.error(e);
+    }
 });
 
 // POST /collection - create an new entry. The ID will return as the “id” field in the Json response
@@ -78,7 +79,7 @@ app.put('/api/pets/:id', express.json(), async (req, res) => {
   }
 });
 
-//DELETE /collection/:id - I’ll let you figure that one out on your own :) should return a 204 no content if successful.
+//DELETE /collection/:id  should return a 204 no content if successful.
 app.delete('/api/pets/:id', express.json(), async (req, res) => {
   try {
     const id = req.params.id;
@@ -105,9 +106,8 @@ function generateUid() {
   });
 }
 
-app.get('/hello', async (_, res) => {
+app.get('/please-change-me/db-admin', async (_, res) => {
   try {
-    const val = (await get('hello')) || 'World';
     res.end('Hello ', val);
   } catch (err) {
     console.error(err);
