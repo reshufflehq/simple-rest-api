@@ -1,10 +1,17 @@
 import express from 'express';
 import * as db from '@reshuffle/db';
 const swaggerUi = require('swagger-ui-express');
+const devDBAdmin = require('./_dev_db_admin');
 const swaggerDocument = require('./swagger.json');
 
 const app = express();
 app.set('trust proxy', true);
+
+// DEV ONLY: uncomment the follow line to admin your local or cloud DB (served this path: /dev-only/db-admin )
+//devDBAdmin.initDevDBAdmin(app);
+ 
+
+
 // API endpoints
 const allPetsQuery = db.Q.filter(db.Q.key.startsWith('pets/'));
 

@@ -3,6 +3,8 @@ import * as db from '@reshuffle/db';
 
 /**
  * 
+ * THIS IS NOT WHERE YOUR CODE GOES - do add code edit _handler.js in the backend folder.
+ * 
  * How to enable this DB admin:
  * 1) Edit _hander.js in this folder
  * 2) Uncomment devDBAdmin.initDevDBAdmin(app);
@@ -47,6 +49,21 @@ function initDevDBAdmin(app) {
                 xhttp.setRequestHeader("Content-type", "application/json");
                 xhttp.send('{"action":"UPDATE","id":"'+key+'", "value":'+document.getElementById(key).value+'}');
             }
+
+            function newElement(){ 
+                var conf = confirm("Create new entry?"); 
+                if(!conf) return;
+                var xhttp = new XMLHttpRequest();
+                xhttp.onreadystatechange = function() {
+                    if (this.readyState == 4 && this.status == 200) {
+                    document.getElementById("message").innerHTML = this.responseText;
+                    setTimeout(function(){location.reload()},1000);
+                    }
+                };
+                xhttp.open("POST", "./db-admin", true);
+                xhttp.setRequestHeader("Content-type", "application/json");
+                xhttp.send('{"action":"CREATE","id":"'+document.getElementById("new_key").value+'", "value":'+document.getElementById("new_value").value+'}');
+            }
             </script>
 
             <style>
@@ -79,7 +96,7 @@ function initDevDBAdmin(app) {
         <th>Key</th>
         <th>Value</th>
         <th>Actions</th>
-    </tr>
+        </tr>
         `
             for (var x = 0; x < result.length; x++) {
                 output += `<tr><td>${result[x].key}</td><td><textarea id="${result[x].key}" rows="4" cols="50">${JSON.stringify(result[x].value)}</textarea>
@@ -88,7 +105,13 @@ function initDevDBAdmin(app) {
         <button class="button update" onclick="updateElement('${result[x].key}')">Update</button>
         </td></tr>`;
             }
-            output += `</table></html>`;
+            output += `
+            <tr>
+        <td><input size=40 id="new_key" value="your-key" type=text></td>
+        <td><textarea id="new_value" rows="4" cols="50">{}</textarea></td>
+        <td><button class="button update" onclick="newElement()">create</button></td>
+        </tr>
+            </table></html>`;
             res.end(output);
         } catch (err) {
             console.error(err);
@@ -99,7 +122,21 @@ function initDevDBAdmin(app) {
     app.post('/dev-only/db-admin', express.json(), async (req, res) => {
         var id = req.body.id;
         var action = req.body.action;
-        res.end(`${action} done: ${id}`);
+        if(action=="DELETE"){
+            const result = await db.remove(id);
+            res.end(`DELETED: ${id}`);
+        }else if(action =="UPDATE"){
+            const value = req.body.value;
+            const result = db.update(id, (prev_value) => { return value; });
+            res.end(`UPDATED: ${id}`);
+        }else if(action =="CREATE"){
+            const value = req.body.value;
+            const result = db.update(id, (prev_value) => { return value; });
+            res.end(`CREATED: ${id}`);
+        }else{
+            res.end(`action ${action} not found`);
+        }
+        
     });
 
 
