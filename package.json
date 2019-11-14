@@ -1,7 +1,13 @@
 {
-  "name": "my-app",
-  "version": "0.1.0",
+  "name": "simple-rest-api",
+  "version": "0.0.1",
+  "license": "MIT",
   "private": true,
+  "keywords": [
+    "api",
+    "REST",
+    "reshuffle"
+  ],
   "dependencies": {
     "@reshuffle/code-transform": "^0.0.3",
     "@reshuffle/db": "^0.5.3",
