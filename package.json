@@ -17,7 +17,7 @@
     "swagger-ui-express": "^4.1.2"
   },
   "scripts": {
-    "start": "node src/start.js",
+    "start": "reshuffle-local-server",
     "build": "echo nothing to build"
   }
 }
