@@ -1,3 +1,5 @@
+# We have terminated the backend for this project.  Old Reshuffle projects can no longer be deployed.
+
 ## A starting point for creating your REST API with Reshuffle.
 
 This is a simple starter kit for a REST API implementation. You can use it to easily create many useful APIs. Additionally, you can use the Swagger specification to automatically create a working UI. This UI can be used for testing and sharing your API with other developers.
